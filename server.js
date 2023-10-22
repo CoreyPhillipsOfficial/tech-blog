@@ -3,6 +3,7 @@ const express = require('express');
 
 // Import our view_routes
 const view_routes = require('./controllers/view_routes');
+const user_routes = require('./controllers/user_routes');
 
 // Create the port and prepare for heroku with the process.env.PORT value
 const PORT = process.env.PORT || 3333;
