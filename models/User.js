@@ -1,5 +1,6 @@
 // Import Model and DataTypes from sequelize
 const { Model, DataTypes } = require('sequelize');
+const db = require('../config/connection');
 
 // Create a User class and extend the Model class
 class User extends Model { }
@@ -23,7 +24,9 @@ User.init({
     }
 }, {
     modelName: 'user',
-    sequelize: 
+    // Connection object
+    sequelize: db
 });
 
 // Export the User model
+module.exports = User;
