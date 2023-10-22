@@ -21,6 +21,9 @@ User.init({
             min: 6
         }
     }
-}, {});
+}, {
+    modelName: 'user',
+    sequelize: 
+});
 
 // Export the User model
