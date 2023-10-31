@@ -1,0 +1,18 @@
+<div>
+    <h1>Tech Blog</h1>
+    {{#each posts}}
+    <section>
+        <div>
+            <h2>
+                <a href="/post/{{id}}">{{title}}</a>
+            </h2>
+            <div>
+                username{{User.username}}on{{format_date createdAt}}
+            </div>
+            <article>
+                {{body}}
+            </article>
+        </div>
+    </section>
+    {{/each}}
+</div>

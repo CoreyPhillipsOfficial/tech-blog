@@ -1,31 +1,45 @@
-// Import express
+const path = require('path');
 const express = require('express');
-const db = require('./config/connection');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const helpers = require('./utils/helpers');
 
-// Import our view_routes
-const view_routes = require('./controllers/view_routes');
-const user_routes = require('./controllers/user_routes');
-
-// Create the port and prepare for heroku with the process.env.PORT value
-const PORT = process.env.PORT || 3333;
-
-// Create the server app
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Open the static channel for our browser assets - ie. express.static on the public folder
-app.use(express.static('./public'));
+const sequelize = require('./config/connection');
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// Allow json to be sent from the client
+const sess = {
+    secret: 'Super secret secret',
+    cookie: {
+        maxAge: 300000,
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+    },
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize
+    })
+};
+
+app.use(session(sess));
+
+const hbs = exphbs.create({ helpers, extname: '.hbs' });
+
+
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Load our view routes at the root level '/'
-app.use('/', view_routes);
+app.use(require('./controllers/'));
 
-// /auth/signup
-app.use('/auth', user_routes);
-
-db.sync()
-.then(() => {
-    // Start the server and log the port that it started on
-    app.listen(PORT, () => console.log('Server is running on port', PORT));
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}!`);
+    sequelize.sync({ force: false });
 });
