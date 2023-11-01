@@ -19,8 +19,8 @@ Create a .env file in the root directory of the project. Include the following:<
 ```DB_NAME='tech_blog_db'
 DB_USER='<your_mysql_username>'
 DB_PASSWORD='<your_mysql_password>'
-SESSION_SECRET='<your_session_secret>'```
-
+SESSION_SECRET='<your_session_secret>'
+```
 Run `npm start`.<br>
 In your web browser, visit http://localhost:3001.<br>
 You've now accessed the Tech-Blog!
@@ -28,7 +28,7 @@ You've now accessed the Tech-Blog!
 
 ## Usage
 
-The user visits the website, clicks the start button, and must take the quiz in the alotted amount of time.
+When you visit the tech blog, there is a home page where you can log in or register. Once you've successfully logged in, you can see existing blog posts that have already been published. From there, you may view and interact with blog posts, leave comments, create new blog posts, update or delete existing posts, and log out when you've finished.
 
 ## Credits
 
